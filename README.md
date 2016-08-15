@@ -2,6 +2,43 @@
 [![Build Status](https://travis-ci.org/JedWatson/react-select.svg?branch=master)](https://travis-ci.org/JedWatson/react-select)
 [![Coverage Status](https://coveralls.io/repos/JedWatson/react-select/badge.svg?branch=master&service=github)](https://coveralls.io/github/JedWatson/react-select?branch=master)
 
+React-Select Fork
+============
+
+This is a fork of React-Select 1.0.0-beta14 to add a mechanism to automatically tokenize values when typing text and pressing enter or space; this feature is similar to [Select2's tokenizer](https://select2.github.io/examples.html#tokenizer).
+
+See the following example:
+
+```js
+<Select
+  name={'selectTokenExample'}
+  className={styles.select3}
+  multi
+  autoTokenize={{
+                enabled: true,
+                onEnterKey: true,
+                onSpaceKey: true
+              }}
+  value={this.state.selectTokenValues}
+  onChange={this.handleChange}
+/>
+```
+
+The following props were added
+
+	Property	|	Type		|	Default		|	Description
+:-----------------------|:--------------|:--------------|:--------------------------------
+	autoTokenize  | object | { enabled: false, onEnterKey: false, onSpaceKey: false}  | If enabled, values will be automatically tokenized as they are typed. If onEnterKey or onSpaceKey is true then tokenization will trigger when pressing the enter key or space key, respectively. By default, empty or invalid values (empty spaces, etc) are not tokenized
+
+Here's a demo of creating new tokens by pressing the enter key:
+
+![Space or Enter key tokenization demo](https://s3.amazonaws.com/uploads.hipchat.com/47021/3153519/fIVMVYVUHoTd9nj/react-select-tokenization-space-or-enter-key.gif)
+
+Here's a demo of two React-Select components, one with autoTokenize enabled and one without it:
+ 
+![Multiple compoenents demo](https://s3.amazonaws.com/uploads.hipchat.com/47021/3153519/KsrT0iDANjqRQcX/react-select-tokenization-autoTokenize-multiple-components.gif)
+
+
 React-Select
 ============
 

@@ -36,7 +36,7 @@ const Select = React.createClass({
 		autoBlur: React.PropTypes.bool,             // automatically blur the component when an option is selected
 		autofocus: React.PropTypes.bool,            // autofocus the component on mount
 		autosize: React.PropTypes.bool,             // whether to enable autosizing or not
-		autoTokenize: React.PropTypes.bool,					// automatically tokenize values
+		autoTokenize: React.PropTypes.object,			  // whether to automatically tokenize values
 		backspaceRemoves: React.PropTypes.bool,     // whether backspace removes an item if there is no text input
 		backspaceToRemoveMessage: React.PropTypes.string,  // Message to use for screenreaders to press backspace to remove the current item -
 														   // {label} is replaced with the item label
@@ -104,6 +104,11 @@ const Select = React.createClass({
 		return {
 			addLabelText: 'Add "{label}"?',
 			autosize: true,
+			autoTokenize: {
+				enabled: false,
+				onEnterKey: false,
+				onSpaceKey: false
+			},
 			allowCreate: false,
 			backspaceRemoves: true,
 			backspaceToRemoveMessage: 'Press backspace to remove {label}',
@@ -402,6 +407,7 @@ const Select = React.createClass({
 	},
 
 	handleKeyDown (event) {
+		let { autoTokenize } = this.props;
 		if (this.props.disabled) return;
 		switch (event.keyCode) {
 			case 8: // backspace
@@ -421,14 +427,10 @@ const Select = React.createClass({
 				event.stopPropagation();
 				this.selectFocusedOption();
 
-				// ENG-1620: adds support for automatic tokenization, similar to Select2
-				if (this.props.autoTokenize) {
-					this.selectValue({
-						value: this.state.inputValue,
-						label: this.state.inputValue
-					});
+				if (autoTokenize.enabled && autoTokenize.onEnterKey) {
+					this.handleTokenization();
 				}
-			break;
+				break;
 			case 27: // escape
 				if (this.state.isOpen) {
 					this.closeMenu();
@@ -438,6 +440,10 @@ const Select = React.createClass({
 					event.stopPropagation();
 				}
 			break;
+			case 32: // space
+				if (autoTokenize.enabled && autoTokenize.onSpaceKey) {
+					this.handleTokenization();
+				}
 			case 38: // up
 				this.focusPreviousOption();
 			break;
@@ -486,6 +492,15 @@ const Select = React.createClass({
 	handleRequired (value, multi) {
 		if (!value) return true;
 		return (multi ? value.length === 0 : Object.keys(value).length === 0);
+	},
+
+	handleTokenization () {
+		if (this.state.inputValue) {
+			this.selectValue({
+				value: this.state.inputValue,
+				label: this.state.inputValue
+			});
+		}
 	},
 
 	getOptionLabel (op) {
