@@ -5,7 +5,7 @@
 React-Select Fork
 ============
 
-This is a fork of React-Select 1.0.0-beta14 to add a mechanism to automatically tokenize values when typing text and pressing enter or space; this feature is similar to [Select2's tokenizer](https://select2.github.io/examples.html#tokenizer).
+This is a fork of React-Select 1.0.0-beta14 to allow automatic tokenization of values when typing text and pressing enter or space; this feature is similar to [Select2's tokenizer](https://select2.github.io/examples.html#tokenizer).
 
 See the following example:
 
