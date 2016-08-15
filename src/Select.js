@@ -36,6 +36,7 @@ const Select = React.createClass({
 		autoBlur: React.PropTypes.bool,             // automatically blur the component when an option is selected
 		autofocus: React.PropTypes.bool,            // autofocus the component on mount
 		autosize: React.PropTypes.bool,             // whether to enable autosizing or not
+		autoTokenize: React.PropTypes.bool,					// automatically tokenize values
 		backspaceRemoves: React.PropTypes.bool,     // whether backspace removes an item if there is no text input
 		backspaceToRemoveMessage: React.PropTypes.string,  // Message to use for screenreaders to press backspace to remove the current item -
 														   // {label} is replaced with the item label
@@ -419,6 +420,14 @@ const Select = React.createClass({
 				if (!this.state.isOpen) return;
 				event.stopPropagation();
 				this.selectFocusedOption();
+
+				// ENG-1620: adds support for automatic tokenization, similar to Select2
+				if (this.props.autoTokenize) {
+					this.selectValue({
+						value: this.state.inputValue,
+						label: this.state.inputValue
+					});
+				}
 			break;
 			case 27: // escape
 				if (this.state.isOpen) {
