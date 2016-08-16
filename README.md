@@ -5,6 +5,8 @@
 React-Select Fork
 ============
 
+**Update**: Please disregard this fork, as this feature is available in React-Select 0.9.1 as the "allowCreate" option and also pending in 1.0.0 as part of [PR #999](https://github.com/JedWatson/react-select/pull/999). Lastly, from reading the contributor guidelines, I shouldn't have committed any build assets to this branch.
+
 This is a fork of React-Select 1.0.0-beta14 to allow automatic tokenization of values when typing text and pressing enter or space; this feature is similar to [Select2's tokenizer](https://select2.github.io/examples.html#tokenizer).
 
 See the following example:
